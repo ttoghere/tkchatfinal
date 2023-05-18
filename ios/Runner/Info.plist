@@ -59,5 +59,16 @@
 	<string>My description about why I need this capability</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>My description about why I need this capability</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.438502949622-86sq3pkeompllbp1sg63qgj8rkbumipf</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

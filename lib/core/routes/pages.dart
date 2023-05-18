@@ -1,6 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tkchatfinal/core/middlewares/middlewares.dart';
+import 'package:tkchatfinal/ui/screens/screens.dart';
 import 'routes.dart';
 
 class AppPages {
@@ -10,7 +11,6 @@ class AppPages {
   static List<String> history = [];
 
   static final List<GetPage> routes = [
-   /*
     GetPage(
       name: AppRoutes.INITIAL,
       page: () => WelcomePage(),
@@ -24,7 +24,17 @@ class AppPages {
       page: () => SignInPage(),
       binding: SignInBinding(),
     ),
+    GetPage(
+      name: AppRoutes.Application,
+      page: () => ApplicationPage(),
+      binding: ApplicationBinding(),
+      middlewares: [
+        RouteAuthMiddleware(priority: 1),
+      ],
+    ),
+    /*
 
+   
     // check if needed to login or not
     GetPage(
       name: AppRoutes.Application,
@@ -47,10 +57,4 @@ class AppPages {
 
     GetPage(name: AppRoutes.Photoimgview, page: () => PhotoImgViewPage(), binding: PhotoImgViewBinding()),*/
   ];
-
-
-
-
-
-
 }
