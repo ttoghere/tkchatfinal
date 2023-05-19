@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       builder: (context, child) => GetMaterialApp(
         title: 'TKChat Final',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.red[900]!),
           useMaterial3: true,

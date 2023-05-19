@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tkchatfinal/core/routes/routes.dart';
 import 'package:tkchatfinal/ui/screens/screens.dart';
 import 'package:tkchatfinal/ui/values/values.dart';
+import 'package:tkchatfinal/ui/widgets/widgets.dart';
 
 class ApplicationPage extends GetView<ApplicationController> {
   @override
@@ -18,20 +21,27 @@ class ApplicationPage extends GetView<ApplicationController> {
       physics: const NeverScrollableScrollPhysics(),
       controller: controller.pageController,
       onPageChanged: controller.handlePageChanged,
-      children: const [
-        Center(
+      children: [
+        const Center(
           child: SizedBox(
             child: Text("Chat"),
           ),
         ),
+        ContactPage(),
         Center(
-          child: SizedBox(
-            child: Text("Contacts"),
-          ),
-        ),
-        Center(
-          child: SizedBox(
-            child: Text("Profile"),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(
+                child: Text("Profile"),
+              ),
+              btnFlatButtonWidget(
+                  onPressed: () async {
+                    await FirebaseAuth.instance.signOut();
+                    Get.toNamed(AppPages.INITIAL);
+                  },
+                  title: "Sign Out"),
+            ],
           ),
         ),
       ],
