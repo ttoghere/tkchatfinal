@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:tkchatfinal/core/entities/entities.dart';
 import 'package:tkchatfinal/core/entities/user.dart';
+import 'package:tkchatfinal/core/routes/routes.dart';
 import 'package:tkchatfinal/core/store/user.dart';
 import 'package:tkchatfinal/ui/screens/screens.dart';
 
@@ -51,6 +53,55 @@ class ContactController extends GetxController {
         )
         .where("to_uid", isEqualTo: token)
         .get();
+    if (from_messages.docs.isEmpty && to_messages.docs.isEmpty) {
+      String profile = await UserStore.to.getProfile();
+      UserLoginResponseEntity userdata = UserLoginResponseEntity.fromJson(
+        jsonDecode(profile),
+      );
+      var msgData = Msg(
+        from_uid: userdata.accessToken,
+        to_uid: to_userdata.id,
+        from_name: userdata.displayName,
+        to_name: to_userdata.name,
+        from_avatar: userdata.photoUrl,
+        to_avatar: to_userdata.photourl,
+        last_msg: "",
+        last_time: Timestamp.now(),
+        msg_num: 0,
+      );
+      db
+          .collection("message")
+          .withConverter(
+            fromFirestore: Msg.fromFirestore,
+            toFirestore: (Msg msg, options) => msg.toFirestore(),
+          )
+          .add(msgData)
+          .then((value) {
+        Get.toNamed(AppRoutes.Chat, parameters: {
+          "doc_id": value.id,
+          "to_uid": to_userdata.id ?? "",
+          "to_name": to_userdata.name ?? "",
+          "to_avatar": to_userdata.photourl ?? "",
+        });
+      });
+    } else {
+      if (from_messages.docs.isNotEmpty) {
+        Get.toNamed(AppRoutes.Chat, parameters: {
+          "doc_id": from_messages.docs.first.id,
+          "to_uid": to_userdata.id ?? "",
+          "to_name": to_userdata.name ?? "",
+          "to_avatar": to_userdata.photourl ?? "",
+        });
+      }
+      if (to_messages.docs.isNotEmpty) {
+        Get.toNamed(AppRoutes.Chat, parameters: {
+          "doc_id": to_messages.docs.first.id,
+          "to_uid": to_userdata.id ?? "",
+          "to_name": to_userdata.name ?? "",
+          "to_avatar": to_userdata.photourl ?? "",
+        });
+      }
+    }
   }
 
   @override

@@ -16,7 +16,7 @@ class AppPages {
       page: () => WelcomePage(),
       binding: WelcomeBinding(),
       middlewares: [
-        // RouteWelcomeMiddleware(priority: 0),
+        RouteWelcomeMiddleware(priority: 0),
       ],
     ),
     GetPage(
@@ -36,6 +36,11 @@ class AppPages {
       name: AppRoutes.Contact,
       page: () => ContactPage(),
       binding: ContactBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.Chat,
+      page: () => ChatPage(),
+      binding: ChatBinding(),
     ),
 
     /*

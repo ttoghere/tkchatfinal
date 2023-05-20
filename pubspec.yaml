@@ -38,6 +38,7 @@ dependencies:
   firebase_core: ^2.13.0
   firebase_in_app_messaging: ^0.7.0+8
   firebase_messaging: ^14.1.4
+  firebase_storage: ^11.2.1
   flutter:
     sdk: flutter
   flutter_cache_manager: ^3.3.0
@@ -53,6 +54,7 @@ dependencies:
   intl: ^0.17.0
   loading_animations: ^2.2.0
   package_info: ^2.0.2
+  path: ^1.8.3
   path_provider: ^2.0.9
   photo_view: ^0.14.0
   pull_to_refresh: ^2.0.0
